@@ -1,0 +1,10 @@
+sport, duration, intensity, distance, description
+bike, 02:00, 3, 55, 
+crossfit, 01:00, 3, 0, 
+home-short, 00:25, 2, 0, 
+home-long, 00:50, 2, 0, 
+gym-short, 01:00, 3, 0, 
+gym-long, 01:40, 2, 0, 
+zwift, 01:00, 4, 30, 
+run, 00:30, 4, 5, 
+custom, 01:00, 3, 0, 
