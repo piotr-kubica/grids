@@ -45,7 +45,8 @@ class Sportsapp():
         with open(filename, 'r') as csv_file:
             reader = csv.reader(csv_file, delimiter='|')
             for row in reader:
-                self._activities.setdefault(date_from_str(row[0]), []).append(tuple(row[1:]))
+                if row:
+                    self._activities.setdefault(date_from_str(row[0]), []).append(tuple(row[1:]))
 
     def color_grid(self):
         for activity_date in self._activities.keys():
@@ -56,6 +57,8 @@ class Sportsapp():
         pass
 
     def save_activites_to_file(self):
+        # clean up empty activities
+        self._activities = {date: act for date, act in self._activities.items() if act}
         filename = self._cfg.activity_filename(self._selected_date)
         with open(filename, 'w') as csv_file:
             writer = csv.writer(csv_file, delimiter='|')
@@ -99,8 +102,8 @@ class Sportsapp():
     def save(self):
         activities = tuple([self.sanitize_delimiter(activity)
                             for activity in self._ui.export_workouts()])
-        if activities:
-            self._activities[self._selected_date] = activities
+        
+        self._activities[self._selected_date] = activities
         self.update_calgrid_color(self._selected_date)
         self._ui.set_save_status_label('Saved', 'gray')
         self.save_activites_to_file()
@@ -137,7 +140,7 @@ class Sportsapp():
 
     def remove_activity(self):
         removed = self._ui.remove_activity(self._ui.workout_selected())
-        if removed is not None:
+        if removed:
             self._ui.workout_reset_selection()
             self._ui.set_save_status_label('unsaved', 'red')
             self._ui.enable_add()
