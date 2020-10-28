@@ -1,5 +1,5 @@
 # grids
-Sports activities grid
+Sports activities grid desktop app
 
 ![app screenshot](/grids_screenshot.png?raw=true "Grids screenshot")
 
